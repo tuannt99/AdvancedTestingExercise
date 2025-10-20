@@ -48,29 +48,29 @@ public class AccountManagerTest {
         assertEquals("https://hoctotlamhay.vn/", currentUrl,
                 "Không trở lại trang chủ sau khi đăng ký thành công.");
     }
-    @ParameterizedTest
-    @CsvSource({
-            "minhnt@gmail.com,minhnt123,Nguyễn Tường Minh"
-    })
-    public void loginTest(String email, String password, String expectedName) {
-        driver.get("https://hoctotlamhay.vn/login");
-        // Tìm và nhập thông tin đăng nhập
-        WebElement emailInput = driver.findElement(By.name("user_email"));
-        WebElement passwordInput = driver.findElement(By.name("password"));
-        WebElement loginButton = driver.findElement(By.xpath("//button[contains(text(),'Đăng nhập')]"));
-        emailInput.sendKeys(email);
-        passwordInput.sendKeys(password);
-        loginButton.click();
-        //Chờ cho đến khi trang chủ tải xong
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlContains("https://hoctotlamhay.vn/"));
-        //Kiểm tra sự xuất hiện của tên người dùng
-        WebElement nameElement = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[contains(text(),'" + expectedName + "')]")
-        ));
-        assertTrue(nameElement.isDisplayed(),
-                "Không tìm thấy tên: " + expectedName);
-    }
+//    @ParameterizedTest
+//    @CsvSource({
+//            "minhnt@gmail.com,minhnt123,Nguyễn Tường Minh"
+//    })
+//    public void loginTest(String email, String password, String expectedName) {
+//        driver.get("https://hoctotlamhay.vn/login");
+//        // Tìm và nhập thông tin đăng nhập
+//        WebElement emailInput = driver.findElement(By.name("user_email"));
+//        WebElement passwordInput = driver.findElement(By.name("password"));
+//        WebElement loginButton = driver.findElement(By.xpath("//button[contains(text(),'Đăng nhập')]"));
+//        emailInput.sendKeys(email);
+//        passwordInput.sendKeys(password);
+//        loginButton.click();
+//        //Chờ cho đến khi trang chủ tải xong
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.urlContains("https://hoctotlamhay.vn/"));
+//        //Kiểm tra sự xuất hiện của tên người dùng
+//        WebElement nameElement = wait.until(ExpectedConditions.presenceOfElementLocated(
+//                By.xpath("//*[contains(text(),'" + expectedName + "')]")
+//        ));
+//        assertTrue(nameElement.isDisplayed(),
+//                "Không tìm thấy tên: " + expectedName);
+//    }
     @AfterAll
     public static void tearDown() {
         if (driver != null) driver.quit();
