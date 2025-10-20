@@ -1,24 +1,25 @@
 name: Maven CI
-# Khi nào workflow chạy
+
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
 jobs:
-  build-and-test:
-    runs-on: windows-latest
+  build:
+    runs-on: ubuntu-latest
+
     steps:
-      # Checkout code từ repository
-      - uses: actions/checkout@v3
-      # Cài đặt Java
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: '17'
-      # Build project với Maven
+          cache: 'maven'
+
       - name: Build with Maven
-        run: mvn clean install --batch-mode
-      # Chạy test với Maven
-      - name: Run tests
-        run: mvn test --batch-mode
+        run: mvn -B package --file pom.xml
