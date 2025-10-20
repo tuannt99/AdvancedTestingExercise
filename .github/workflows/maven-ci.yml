@@ -19,12 +19,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          java-package: jdk
-          check-latest: false
-          server-id: github
-          server-username: GITHUB_ACTOR
-          server-password: GITHUB_TOKEN
-          overwrite-settings: true
+          cache: 'maven'
 
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+      - name: Install Chrome
+        run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
+
+      - name: Build and Test with Maven
+        run: mvn -B clean test --file pom.xml
